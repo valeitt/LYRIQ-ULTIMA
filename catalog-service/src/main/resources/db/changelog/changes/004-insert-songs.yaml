@@ -1,0 +1,102 @@
+databaseChangeLog:
+
+  - changeSet:
+      id: 4
+      author: vale
+
+      changes:
+
+        - insert:
+            tableName: songs
+            columns:
+              - column:
+                  name: title
+                  value: 505
+              - column:
+                  name: artist
+                  value: Arctic Monkeys
+              - column:
+                  name: album
+                  value: Favourite Worst Nightmare
+              - column:
+                  name: image_url
+                  value: https://image1.com
+              - column:
+                  name: genre_id
+                  valueNumeric: 1
+
+        - insert:
+            tableName: songs
+            columns:
+              - column:
+                  name: title
+                  value: Blinding Lights
+              - column:
+                  name: artist
+                  value: The Weeknd
+              - column:
+                  name: album
+                  value: After Hours
+              - column:
+                  name: image_url
+                  value: https://image2.com
+              - column:
+                  name: genre_id
+                  valueNumeric: 2
+
+        - insert:
+            tableName: songs
+            columns:
+              - column:
+                  name: title
+                  value: Sweater Weather
+              - column:
+                  name: artist
+                  value: The Neighbourhood
+              - column:
+                  name: album
+                  value: I Love You
+              - column:
+                  name: image_url
+                  value: https://image3.com
+              - column:
+                  name: genre_id
+                  valueNumeric: 3
+
+        - insert:
+            tableName: songs
+            columns:
+              - column:
+                  name: title
+                  value: Dakiti
+              - column:
+                  name: artist
+                  value: Bad Bunny
+              - column:
+                  name: album
+                  value: El Último Tour Del Mundo
+              - column:
+                  name: image_url
+                  value: https://image4.com
+              - column:
+                  name: genre_id
+                  valueNumeric: 4
+
+        - insert:
+            tableName: songs
+            columns:
+              - column:
+                  name: title
+                  value: Animals
+              - column:
+                  name: artist
+                  value: Martin Garrix
+              - column:
+                  name: album
+                  value: Animals
+              - column:
+                  name: image_url
+                  value: https://image5.com
+              - column:
+                  name: genre_id
+                  valueNumeric: 5

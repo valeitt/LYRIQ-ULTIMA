@@ -1,0 +1,137 @@
+databaseChangeLog:
+
+  - changeSet:
+      id: 2
+      author: vale
+
+      changes:
+
+        - insert:
+            tableName: swipes
+            columns:
+              - column:
+                  name: user_id
+                  valueNumeric: 1
+              - column:
+                  name: song_id
+                  valueNumeric: 1
+              - column:
+                  name: action
+                  value: LIKE
+
+        - insert:
+            tableName: swipes
+            columns:
+              - column:
+                  name: user_id
+                  valueNumeric: 1
+              - column:
+                  name: song_id
+                  valueNumeric: 2
+              - column:
+                  name: action
+                  value: DISLIKE
+
+        - insert:
+            tableName: swipes
+            columns:
+              - column:
+                  name: user_id
+                  valueNumeric: 1
+              - column:
+                  name: song_id
+                  valueNumeric: 3
+              - column:
+                  name: action
+                  value: LIKE
+
+        - insert:
+            tableName: swipes
+            columns:
+              - column:
+                  name: user_id
+                  valueNumeric: 2
+              - column:
+                  name: song_id
+                  valueNumeric: 1
+              - column:
+                  name: action
+                  value: LIKE
+
+        - insert:
+            tableName: swipes
+            columns:
+              - column:
+                  name: user_id
+                  valueNumeric: 2
+              - column:
+                  name: song_id
+                  valueNumeric: 4
+              - column:
+                  name: action
+                  value: DISLIKE
+
+        - insert:
+            tableName: swipes
+            columns:
+              - column:
+                  name: user_id
+                  valueNumeric: 2
+              - column:
+                  name: song_id
+                  valueNumeric: 5
+              - column:
+                  name: action
+                  value: LIKE
+
+        - insert:
+            tableName: swipes
+            columns:
+              - column:
+                  name: user_id
+                  valueNumeric: 3
+              - column:
+                  name: song_id
+                  valueNumeric: 2
+              - column:
+                  name: action
+                  value: DISLIKE
+
+        - insert:
+            tableName: swipes
+            columns:
+              - column:
+                  name: user_id
+                  valueNumeric: 3
+              - column:
+                  name: song_id
+                  valueNumeric: 3
+              - column:
+                  name: action
+                  value: LIKE
+
+        - insert:
+            tableName: swipes
+            columns:
+              - column:
+                  name: user_id
+                  valueNumeric: 4
+              - column:
+                  name: song_id
+                  valueNumeric: 4
+              - column:
+                  name: action
+                  value: LIKE
+
+        - insert:
+            tableName: swipes
+            columns:
+              - column:
+                  name: user_id
+                  valueNumeric: 5
+              - column:
+                  name: song_id
+                  valueNumeric: 5
+              - column:
+                  name: action
+                  value: DISLIKE

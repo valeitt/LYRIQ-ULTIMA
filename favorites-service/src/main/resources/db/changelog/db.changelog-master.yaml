@@ -1,0 +1,7 @@
+databaseChangeLog:
+
+  - include:
+      file: db/changelog/changes/001-create-favorites-table.yaml
+
+  - include:
+      file: db/changelog/changes/002-insert-favorites.yaml

@@ -1,0 +1,28 @@
+databaseChangeLog:
+
+  - changeSet:
+      id: 1
+      author: vale
+
+      changes:
+
+        - createTable:
+            tableName: favorites
+
+            columns:
+
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+
+              - column:
+                  name: user_id
+                  type: BIGINT
+
+              - column:
+                  name: song_id
+                  type: BIGINT

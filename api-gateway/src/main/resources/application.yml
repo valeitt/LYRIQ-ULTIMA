@@ -1,0 +1,42 @@
+server:
+  port: 7070
+
+spring:
+  application:
+    name: api-gateway
+
+  cloud:
+    gateway:
+      server:
+        webflux:
+          routes:
+
+            - id: catalog-service
+              uri: http://localhost:7071
+              predicates:
+                - Path=/catalog/**
+              filters:
+                - StripPrefix=1
+
+            - id: auth-service
+              uri: http://localhost:7072
+              predicates:
+                - Path=/auth/**
+
+            - id: swipe-service
+              uri: http://localhost:7073
+              predicates:
+                - Path=/swipes/**
+
+            - id: favorites-service
+              uri: http://localhost:7074
+              predicates:
+                - Path=/favorites/**
+
+            - id: history-service
+              uri: http://localhost:7075
+              predicates:
+                - Path=/history/**
+
+jwt:
+  secret: mi_clave_super_secreta_para_jwt_2026_123456789

@@ -1,0 +1,27 @@
+databaseChangeLog:
+
+  - changeSet:
+      id: 1
+      author: vale
+
+      changes:
+
+        - createTable:
+            tableName: genres
+
+            columns:
+
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+
+              - column:
+                  name: genre_name
+                  type: VARCHAR(255)
+              - column:
+                  name: tag_color
+                  type: VARCHAR(255)

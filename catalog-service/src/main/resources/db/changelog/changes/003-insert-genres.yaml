@@ -1,0 +1,57 @@
+databaseChangeLog:
+
+  - changeSet:
+      id: 3
+      author: vale
+
+      changes:
+
+        - insert:
+            tableName: genres
+            columns:
+              - column:
+                  name: genre_name
+                  value: Rock
+              - column:
+                  name: tag_color
+                  value: "#ff0000"
+
+        - insert:
+            tableName: genres
+            columns:
+              - column:
+                  name: genre_name
+                  value: Pop
+              - column:
+                  name: tag_color
+                  value: "#00ff00"
+
+        - insert:
+            tableName: genres
+            columns:
+              - column:
+                  name: genre_name
+                  value: Indie
+              - column:
+                  name: tag_color
+                  value: "#0000ff"
+
+        - insert:
+            tableName: genres
+            columns:
+              - column:
+                  name: genre_name
+                  value: Reggaeton
+              - column:
+                  name: tag_color
+                  value: "#ffff00"
+
+        - insert:
+            tableName: genres
+            columns:
+              - column:
+                  name: genre_name
+                  value: Electronic
+              - column:
+                  name: tag_color
+                  value: "#ff00ff"

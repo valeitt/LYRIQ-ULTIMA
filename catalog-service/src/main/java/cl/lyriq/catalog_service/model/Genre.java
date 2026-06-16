@@ -1,0 +1,19 @@
+package cl.lyriq.catalog_service.model;
+
+import jakarta.persistence.*;
+import lombok.Data;
+
+@Data
+@Entity
+@Table(name = "genres")
+public class Genre {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(nullable = false)
+    private String genreName;
+
+    private String tagColor;
+}
