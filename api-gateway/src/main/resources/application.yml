@@ -42,5 +42,10 @@ spring:
               uri: http://localhost:7076/
               predicates:
                 - Path=/playlists/**
+
+            - id: playlist-song-service
+              uri: http://localhost:7077/
+              predicates:
+                - Path=/playlist-songs/**
 jwt:
   secret: mi_clave_super_secreta_para_jwt_2026_123456789
