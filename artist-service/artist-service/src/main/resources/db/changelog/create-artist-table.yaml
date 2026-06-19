@@ -1,0 +1,94 @@
+databaseChangeLog:
+
+  - changeSet:
+      id: 1
+      author: Vale
+
+      changes:
+
+        - createTable:
+            tableName: artists
+
+            columns:
+
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+
+              - column:
+                  name: name
+                  type: VARCHAR(255)
+
+              - column:
+                  name: country
+                  type: VARCHAR(255)
+
+- changeSet:
+      id: 2
+      author: Vale
+
+      changes:
+
+        - insert:
+            tableName: artists
+            columns:
+              - column: {name: name, value: "Linkin Park"}
+              - column: {name: country, value: "USA"}
+
+        - insert:
+            tableName: artists
+            columns:
+              - column: {name: name, value: "Metallica"}
+              - column: {name: country, value: "USA"}
+
+        - insert:
+            tableName: artists
+            columns:
+              - column: {name: name, value: "Iron Maiden"}
+              - column: {name: country, value: "UK"}
+
+        - insert:
+            tableName: artists
+            columns:
+              - column: {name: name, value: "The Beatles"}
+              - column: {name: country, value: "UK"}
+
+        - insert:
+            tableName: artists
+            columns:
+              - column: {name: name, value: "Bad Bunny"}
+              - column: {name: country, value: "Puerto Rico"}
+
+        - insert:
+            tableName: artists
+            columns:
+              - column: {name: name, value: "Taylor Swift"}
+              - column: {name: country, value: "USA"}
+
+        - insert:
+            tableName: artists
+            columns:
+              - column: {name: name, value: "Los Bunkers"}
+              - column: {name: country, value: "Chile"}
+
+        - insert:
+            tableName: artists
+            columns:
+              - column: {name: name, value: "Los Prisioneros"}
+              - column: {name: country, value: "Chile"}
+
+        - insert:
+            tableName: artists
+            columns:
+              - column: {name: name, value: "Queen"}
+              - column: {name: country, value: "UK"}
+
+        - insert:
+            tableName: artists
+            columns:
+              - column: {name: name, value: "Daft Punk"}
+              - column: {name: country, value: "France"}

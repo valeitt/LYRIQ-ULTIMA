@@ -1,0 +1,2 @@
+include:
+    file: db/changelog/create-artist-table.yaml

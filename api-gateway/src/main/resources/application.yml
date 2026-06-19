@@ -52,5 +52,11 @@ spring:
               uri: http://localhost:7078/
               predicates:
                 - Path=/recommendations/**
+
+            - id: artist-service
+              uri: http://localhost:7079/
+              predicates:
+                - Path=/artists/**
+
 jwt:
   secret: mi_clave_super_secreta_para_jwt_2026_123456789
