@@ -58,5 +58,10 @@ spring:
               predicates:
                 - Path=/artists/**
 
+            - id: notification-service
+              uri: http://localhost:7080/
+              predicates:
+                - Path=/notifications/**
+
 jwt:
   secret: mi_clave_super_secreta_para_jwt_2026_123456789
