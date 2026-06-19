@@ -38,5 +38,9 @@ spring:
               predicates:
                 - Path=/history/**
 
+            - id: playlist-service
+              uri: http://localhost:7076/
+              predicates:
+                - Path=/playlists/**
 jwt:
   secret: mi_clave_super_secreta_para_jwt_2026_123456789

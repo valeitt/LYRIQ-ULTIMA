@@ -1,0 +1,103 @@
+databaseChangeLog:
+
+  - changeSet:
+      id: 1
+      author: Vale
+
+      
+      changes:
+
+        - createTable:
+            tableName: playlists
+
+            columns:
+
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+
+              - column:
+                  name: user_id
+                  type: BIGINT
+
+              - column:
+                  name: name
+                  type: VARCHAR(255)
+
+              - column:
+                  name: description
+                  type: VARCHAR(255)
+
+
+ - changeSet:
+      id: 2
+
+      author: Vale
+
+       changes:
+
+        - insert:
+            tableName: playlists
+            columns:
+              - column: {name: user_id, valueNumeric: 1}
+              - column: {name: name, value: "Rock Chileno"}
+              - column: {name: description, value: "Los Bunkers y Los Prisioneros"}
+
+        - insert:
+            tableName: playlists
+            columns:
+              - column: {name: user_id, valueNumeric: 1}
+              - column: {name: name, value: "Metal"}
+              - column: {name: description, value: "Metallica y Iron Maiden"}
+
+        - insert:
+            tableName: playlists
+            columns:
+              - column: {name: user_id, valueNumeric: 2}
+              - column: {name: name, value: "Pop"}
+              - column: {name: description, value: "Taylor Swift"}
+
+        - insert:
+            tableName: playlists
+            columns:
+              - column: {name: user_id, valueNumeric: 2}
+              - column: {name: name, value: "Reggaeton"}
+              - column: {name: description, value: "Bad Bunny"}
+
+        - insert:
+            tableName: playlists
+            columns:
+              - column: {name: user_id, valueNumeric: 3}
+              - column: {name: name, value: "Gym"}
+              - column: {name: description, value: "Entrenamiento"}
+
+        - insert:
+            tableName: playlists
+            columns:
+              - column: {name: user_id, valueNumeric: 3}
+              - column: {name: name, value: "Running"}
+              - column: {name: description, value: "Cardio"}
+
+        - insert:
+            tableName: playlists
+            columns:
+              - column: {name: user_id, valueNumeric: 4}
+              - column: {name: name, value: "Lofi"}
+              - column: {name: description, value: "Para estudiar"}
+
+        - insert:
+            tableName: playlists
+            columns:
+              - column: {name: user_id, valueNumeric: 4}
+              - column: {name: name, value: "Jazz"}
+              - column: {name: description, value: "Jazz clasico"}
+
+        - insert:
+            tableName: playlists
+            columns:
+              - column: {name: user_id, valueNumeric: 5}
+              - column: {name: name, value: "Electronica"}
