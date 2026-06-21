@@ -27,7 +27,7 @@ databaseChangeLog:
                   name: country
                   type: VARCHAR(255)
 
-- changeSet:
+  - changeSet:
       id: 2
       author: Vale
 
