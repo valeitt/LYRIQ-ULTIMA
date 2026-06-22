@@ -1,6 +1,8 @@
 package cl.lyriq.artist_service.service;
 
 import cl.lyriq.artist_service.dto.ArtistDTO;
+import cl.lyriq.artist_service.exception.BadRequestException;
+import cl.lyriq.artist_service.exception.ResourceNotFoundException;
 import cl.lyriq.artist_service.model.Artist;
 import cl.lyriq.artist_service.repository.ArtistRepository;
 
@@ -27,19 +29,30 @@ public class ArtistService {
 
         return repository.findById(id)
                 .orElseThrow(() ->
-                        new RuntimeException(
+                        new ResourceNotFoundException(
                                 "Artista no encontrado"));
     }
 
     public Artist create(
             ArtistDTO dto) {
 
+        if (dto.getName() == null ||
+                dto.getName().trim().isEmpty()) {
+
+            throw new BadRequestException(
+                    "El nombre del artista es obligatorio");
+        }
+
         Artist artist = new Artist();
 
-        artist.setName(dto.getName());
-        artist.setCountry(dto.getCountry());
+        artist.setName(
+                dto.getName());
 
-        return repository.save(artist);
+        artist.setCountry(
+                dto.getCountry());
+
+        return repository.save(
+                artist);
     }
 
     public Artist update(
@@ -49,13 +62,17 @@ public class ArtistService {
         Artist artist =
                 repository.findById(id)
                         .orElseThrow(() ->
-                                new RuntimeException(
+                                new ResourceNotFoundException(
                                         "Artista no encontrado"));
 
-        artist.setName(updatedArtist.getName());
-        artist.setCountry(updatedArtist.getCountry());
+        artist.setName(
+                updatedArtist.getName());
 
-        return repository.save(artist);
+        artist.setCountry(
+                updatedArtist.getCountry());
+
+        return repository.save(
+                artist);
     }
 
     public void delete(Long id) {
@@ -63,9 +80,10 @@ public class ArtistService {
         Artist artist =
                 repository.findById(id)
                         .orElseThrow(() ->
-                                new RuntimeException(
+                                new ResourceNotFoundException(
                                         "Artista no encontrado"));
 
-        repository.delete(artist);
+        repository.delete(
+                artist);
     }
 }

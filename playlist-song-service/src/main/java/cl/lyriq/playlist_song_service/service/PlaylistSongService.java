@@ -1,6 +1,8 @@
 package cl.lyriq.playlist_song_service.service;
 
 import cl.lyriq.playlist_song_service.dto.PlaylistSongDTO;
+import cl.lyriq.playlist_song_service.exception.BadRequestException;
+import cl.lyriq.playlist_song_service.exception.ResourceNotFoundException;
 import cl.lyriq.playlist_song_service.model.PlaylistSong;
 import cl.lyriq.playlist_song_service.repository.PlaylistSongRepository;
 
@@ -27,12 +29,22 @@ public class PlaylistSongService {
 
         return repository.findById(id)
                 .orElseThrow(() ->
-                        new RuntimeException(
+                        new ResourceNotFoundException(
                                 "Relación no encontrada"));
     }
 
     public PlaylistSong create(
             PlaylistSongDTO dto) {
+
+        if (dto.getPlaylistId() == null) {
+            throw new BadRequestException(
+                    "El playlistId es obligatorio");
+        }
+
+        if (dto.getSongId() == null) {
+            throw new BadRequestException(
+                    "El songId es obligatorio");
+        }
 
         PlaylistSong playlistSong =
                 new PlaylistSong();
@@ -52,7 +64,7 @@ public class PlaylistSongService {
         PlaylistSong playlistSong =
                 repository.findById(id)
                         .orElseThrow(() ->
-                                new RuntimeException(
+                                new ResourceNotFoundException(
                                         "Relación no encontrada"));
 
         repository.delete(playlistSong);

@@ -1,6 +1,8 @@
 package cl.lyriq.playlist_service.service;
 
 import cl.lyriq.playlist_service.dto.PlaylistDTO;
+import cl.lyriq.playlist_service.exception.BadRequestException;
+import cl.lyriq.playlist_service.exception.ResourceNotFoundException;
 import cl.lyriq.playlist_service.model.Playlist;
 import cl.lyriq.playlist_service.repository.PlaylistRepository;
 
@@ -27,20 +29,38 @@ public class PlaylistService {
 
         return playlistRepository.findById(id)
                 .orElseThrow(() ->
-                        new RuntimeException(
+                        new ResourceNotFoundException(
                                 "Playlist no encontrada"));
     }
 
     public Playlist createPlaylist(
             PlaylistDTO dto) {
 
+        if (dto.getUserId() == null) {
+            throw new BadRequestException(
+                    "El userId es obligatorio");
+        }
+
+        if (dto.getName() == null ||
+                dto.getName().trim().isEmpty()) {
+
+            throw new BadRequestException(
+                    "El nombre de la playlist es obligatorio");
+        }
+
         Playlist playlist = new Playlist();
 
-        playlist.setUserId(dto.getUserId());
-        playlist.setName(dto.getName());
-        playlist.setDescription(dto.getDescription());
+        playlist.setUserId(
+                dto.getUserId());
 
-        return playlistRepository.save(playlist);
+        playlist.setName(
+                dto.getName());
+
+        playlist.setDescription(
+                dto.getDescription());
+
+        return playlistRepository.save(
+                playlist);
     }
 
     public Playlist updatePlaylist(
@@ -50,14 +70,17 @@ public class PlaylistService {
         Playlist playlist =
                 playlistRepository.findById(id)
                         .orElseThrow(() ->
-                                new RuntimeException(
+                                new ResourceNotFoundException(
                                         "Playlist no encontrada"));
 
-        playlist.setName(updatedPlaylist.getName());
+        playlist.setName(
+                updatedPlaylist.getName());
+
         playlist.setDescription(
                 updatedPlaylist.getDescription());
 
-        return playlistRepository.save(playlist);
+        return playlistRepository.save(
+                playlist);
     }
 
     public void deletePlaylist(Long id) {
@@ -65,9 +88,10 @@ public class PlaylistService {
         Playlist playlist =
                 playlistRepository.findById(id)
                         .orElseThrow(() ->
-                                new RuntimeException(
+                                new ResourceNotFoundException(
                                         "Playlist no encontrada"));
 
-        playlistRepository.delete(playlist);
+        playlistRepository.delete(
+                playlist);
     }
 }

@@ -1,6 +1,8 @@
 package cl.lyriq.catalog_service.service;
 
 import cl.lyriq.catalog_service.dto.GenreDTO;
+import cl.lyriq.catalog_service.exception.BadRequestException;
+import cl.lyriq.catalog_service.exception.ResourceNotFoundException;
 import cl.lyriq.catalog_service.model.Genre;
 import cl.lyriq.catalog_service.repository.GenreRepository;
 
@@ -13,7 +15,9 @@ public class GenreService {
 
     private final GenreRepository genreRepository;
 
-    public GenreService(GenreRepository genreRepository) {
+    public GenreService(
+            GenreRepository genreRepository) {
+
         this.genreRepository = genreRepository;
     }
 
@@ -25,37 +29,61 @@ public class GenreService {
 
         return genreRepository.findById(id)
                 .orElseThrow(() ->
-                        new RuntimeException("Genre not found T.T"));
+                        new ResourceNotFoundException(
+                                "Genre not found"));
     }
 
-    public Genre saveGenre(GenreDTO dto) {
+    public Genre saveGenre(
+            GenreDTO dto) {
+
+        if (dto.getGenreName() == null ||
+                dto.getGenreName().trim().isEmpty()) {
+
+            throw new BadRequestException(
+                    "Genre name is required");
+        }
 
         Genre genre = new Genre();
 
-        genre.setGenreName(dto.getGenreName());
-        genre.setTagColor(dto.getTagColor());
+        genre.setGenreName(
+                dto.getGenreName());
 
-        return genreRepository.save(genre);
+        genre.setTagColor(
+                dto.getTagColor());
+
+        return genreRepository.save(
+                genre);
     }
 
-    public Genre updateGenre(Long id, Genre updatedGenre) {
+    public Genre updateGenre(
+            Long id,
+            Genre updatedGenre) {
 
-        Genre genre = genreRepository.findById(id)
-                .orElseThrow(() ->
-                        new RuntimeException("Genre not found T.T"));
+        Genre genre =
+                genreRepository.findById(id)
+                        .orElseThrow(() ->
+                                new ResourceNotFoundException(
+                                        "Genre not found"));
 
-        genre.setGenreName(updatedGenre.getGenreName());
-        genre.setTagColor(updatedGenre.getTagColor());
+        genre.setGenreName(
+                updatedGenre.getGenreName());
 
-        return genreRepository.save(genre);
+        genre.setTagColor(
+                updatedGenre.getTagColor());
+
+        return genreRepository.save(
+                genre);
     }
 
     public void deleteGenre(Long id) {
 
-        Genre genre = genreRepository.findById(id)
-                .orElseThrow(() ->
-                        new RuntimeException("Genre not found T.T"));
+        Genre genre =
+                genreRepository.findById(id)
+                        .orElseThrow(() ->
+                                new ResourceNotFoundException(
+                                        "Genre not found"));
 
-        genreRepository.delete(genre);
+        genreRepository.delete(
+                genre);
     }
 }

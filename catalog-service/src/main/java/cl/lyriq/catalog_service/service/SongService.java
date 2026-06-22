@@ -1,6 +1,8 @@
 package cl.lyriq.catalog_service.service;
 
 import cl.lyriq.catalog_service.dto.SongDTO;
+import cl.lyriq.catalog_service.exception.BadRequestException;
+import cl.lyriq.catalog_service.exception.ResourceNotFoundException;
 import cl.lyriq.catalog_service.model.Genre;
 import cl.lyriq.catalog_service.model.Song;
 import cl.lyriq.catalog_service.repository.GenreRepository;
@@ -22,8 +24,9 @@ public class SongService {
     private final SongRepository songRepository;
     private final GenreRepository genreRepository;
 
-    public SongService(SongRepository songRepository,
-                       GenreRepository genreRepository) {
+    public SongService(
+            SongRepository songRepository,
+            GenreRepository genreRepository) {
 
         this.songRepository = songRepository;
         this.genreRepository = genreRepository;
@@ -37,57 +40,111 @@ public class SongService {
 
         return songRepository.findById(id)
                 .orElseThrow(() ->
-                        new RuntimeException("Song not found T-T"));
+                        new ResourceNotFoundException(
+                                "Song not found"));
     }
 
     public Song saveSong(SongDTO dto) {
 
-        logger.info("Creating song >.< {}", dto.getTitle());
+        if (dto.getTitle() == null ||
+                dto.getTitle().trim().isEmpty()) {
 
-        Genre genre = genreRepository.findById(dto.getGenreId())
-                .orElseThrow(() ->
-                        new RuntimeException("Genre not found"));
+            throw new BadRequestException(
+                    "Song title is required");
+        }
+
+        if (dto.getArtist() == null ||
+                dto.getArtist().trim().isEmpty()) {
+
+            throw new BadRequestException(
+                    "Artist is required");
+        }
+
+        if (dto.getGenreId() == null) {
+
+            throw new BadRequestException(
+                    "Genre ID is required");
+        }
+
+        logger.info(
+                "Creating song {}",
+                dto.getTitle());
+
+        Genre genre =
+                genreRepository.findById(
+                                dto.getGenreId())
+                        .orElseThrow(() ->
+                                new ResourceNotFoundException(
+                                        "Genre not found"));
 
         Song song = new Song();
 
-        song.setTitle(dto.getTitle());
-        song.setArtist(dto.getArtist());
-        song.setAlbum(dto.getAlbum());
-        song.setImageUrl(dto.getImageUrl());
-        song.setGenre(genre);
+        song.setTitle(
+                dto.getTitle());
 
-        Song savedSong = songRepository.save(song);
+        song.setArtist(
+                dto.getArtist());
 
-        logger.info("Song saved with ID :3 {}",
+        song.setAlbum(
+                dto.getAlbum());
+
+        song.setImageUrl(
+                dto.getImageUrl());
+
+        song.setGenre(
+                genre);
+
+        Song savedSong =
+                songRepository.save(song);
+
+        logger.info(
+                "Song saved with ID {}",
                 savedSong.getId());
 
         return savedSong;
     }
 
-    public Song updateSong(Long id, Song updatedSong) {
+    public Song updateSong(
+            Long id,
+            Song updatedSong) {
 
-        Song song = songRepository.findById(id)
-                .orElseThrow(() ->
-                        new RuntimeException("Song not found :("));
+        Song song =
+                songRepository.findById(id)
+                        .orElseThrow(() ->
+                                new ResourceNotFoundException(
+                                        "Song not found"));
 
-        song.setTitle(updatedSong.getTitle());
-        song.setArtist(updatedSong.getArtist());
-        song.setAlbum(updatedSong.getAlbum());
-        song.setImageUrl(updatedSong.getImageUrl());
+        song.setTitle(
+                updatedSong.getTitle());
 
-        logger.info("Song updated with ID :3 {}", id);
+        song.setArtist(
+                updatedSong.getArtist());
+
+        song.setAlbum(
+                updatedSong.getAlbum());
+
+        song.setImageUrl(
+                updatedSong.getImageUrl());
+
+        logger.info(
+                "Song updated with ID {}",
+                id);
 
         return songRepository.save(song);
     }
 
     public void deleteSong(Long id) {
 
-        Song song = songRepository.findById(id)
-                .orElseThrow(() ->
-                        new RuntimeException("Song not found :/"));
+        Song song =
+                songRepository.findById(id)
+                        .orElseThrow(() ->
+                                new ResourceNotFoundException(
+                                        "Song not found"));
 
         songRepository.delete(song);
 
-        logger.info("Song delete with ID :D {}", id);
+        logger.info(
+                "Song deleted with ID {}",
+                id);
     }
 }

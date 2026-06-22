@@ -1,6 +1,7 @@
 package cl.lyriq.history_service.service;
 
 import cl.lyriq.history_service.dto.HistoryDTO;
+import cl.lyriq.history_service.exception.BadRequestException;
 import cl.lyriq.history_service.model.History;
 import cl.lyriq.history_service.repository.HistoryRepository;
 
@@ -30,14 +31,31 @@ public class HistoryService {
         return historyRepository.findByUserId(userId);
     }
 
-    public History saveHistory(HistoryDTO dto) {
+    public History saveHistory(
+            HistoryDTO dto) {
+
+        if (dto.getUserId() == null) {
+            throw new BadRequestException(
+                    "El userId es obligatorio");
+        }
+
+        if (dto.getSongId() == null) {
+            throw new BadRequestException(
+                    "El songId es obligatorio");
+        }
 
         History history = new History();
 
-        history.setUserId(dto.getUserId());
-        history.setSongId(dto.getSongId());
-        history.setPlayedAt(LocalDateTime.now());
+        history.setUserId(
+                dto.getUserId());
 
-        return historyRepository.save(history);
+        history.setSongId(
+                dto.getSongId());
+
+        history.setPlayedAt(
+                LocalDateTime.now());
+
+        return historyRepository.save(
+                history);
     }
 }
