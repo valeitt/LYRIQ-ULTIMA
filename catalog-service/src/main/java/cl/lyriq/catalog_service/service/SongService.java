@@ -30,23 +30,33 @@ public class SongService {
     }
 
     public List<Song> getAllSongs() {
+
+        logger.info("Getting all songs");
+
         return songRepository.findAll();
     }
 
     public Song getSongById(Long id) {
 
+        logger.info("Getting song with ID {}", id);
+
         return songRepository.findById(id)
-                .orElseThrow(() ->
-                        new RuntimeException("Song not found T-T"));
+                .orElseThrow(() -> {
+                    logger.error("Song not found with ID {}", id);
+                    return new RuntimeException("Song not found T-T");
+                });
     }
 
     public Song saveSong(SongDTO dto) {
 
-        logger.info("Creating song >.< {}", dto.getTitle());
+        logger.info("Creating song: {}", dto.getTitle());
 
         Genre genre = genreRepository.findById(dto.getGenreId())
-                .orElseThrow(() ->
-                        new RuntimeException("Genre not found"));
+                .orElseThrow(() -> {
+                    logger.error("Genre not found with ID {}",
+                            dto.getGenreId());
+                    return new RuntimeException("Genre not found");
+                });
 
         Song song = new Song();
 
@@ -58,7 +68,7 @@ public class SongService {
 
         Song savedSong = songRepository.save(song);
 
-        logger.info("Song saved with ID :3 {}",
+        logger.info("Song created successfully with ID {}",
                 savedSong.getId());
 
         return savedSong;
@@ -66,28 +76,40 @@ public class SongService {
 
     public Song updateSong(Long id, Song updatedSong) {
 
+        logger.info("Updating song with ID {}", id);
+
         Song song = songRepository.findById(id)
-                .orElseThrow(() ->
-                        new RuntimeException("Song not found :("));
+                .orElseThrow(() -> {
+                    logger.error("Song not found with ID {}", id);
+                    return new RuntimeException("Song not found :(");
+                });
 
         song.setTitle(updatedSong.getTitle());
         song.setArtist(updatedSong.getArtist());
         song.setAlbum(updatedSong.getAlbum());
         song.setImageUrl(updatedSong.getImageUrl());
 
-        logger.info("Song updated with ID :3 {}", id);
+        Song savedSong = songRepository.save(song);
 
-        return songRepository.save(song);
+        logger.info("Song updated successfully with ID {}",
+                id);
+
+        return savedSong;
     }
 
     public void deleteSong(Long id) {
 
+        logger.info("Deleting song with ID {}", id);
+
         Song song = songRepository.findById(id)
-                .orElseThrow(() ->
-                        new RuntimeException("Song not found :/"));
+                .orElseThrow(() -> {
+                    logger.error("Song not found with ID {}", id);
+                    return new RuntimeException("Song not found :/");
+                });
 
         songRepository.delete(song);
 
-        logger.info("Song delete with ID :D {}", id);
+        logger.info("Song deleted successfully with ID {}",
+                id);
     }
 }

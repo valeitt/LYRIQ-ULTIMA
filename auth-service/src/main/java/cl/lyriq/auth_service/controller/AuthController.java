@@ -7,12 +7,18 @@ import cl.lyriq.auth_service.repository.UserRepository;
 import cl.lyriq.auth_service.security.JwtService;
 import cl.lyriq.auth_service.service.AuthService;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
+
+    private static final Logger logger =
+            LoggerFactory.getLogger(AuthController.class);
 
     private final AuthService authService;
     private final UserRepository userRepository;
@@ -32,22 +38,38 @@ public class AuthController {
 
     @PostMapping("/register")
     public User register(@RequestBody RegisterDTO dto) {
+
+        logger.info("Registering user: {}", dto.getUsername());
+
         return authService.register(dto);
     }
 
     @PostMapping("/login")
     public String login(@RequestBody LoginDTO dto) {
 
+        logger.info("Login attempt for user: {}",
+                dto.getUsername());
+
         User existingUser = userRepository
                 .findByUsername(dto.getUsername())
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> {
+                    logger.error("User not found: {}",
+                            dto.getUsername());
+                    return new RuntimeException("User not found");
+                });
 
         if (!passwordEncoder.matches(
                 dto.getPassword(),
                 existingUser.getPassword())) {
 
+            logger.error("Invalid password for user: {}",
+                    dto.getUsername());
+
             throw new RuntimeException("Password not found");
         }
+
+        logger.info("Login successful for user: {}",
+                dto.getUsername());
 
         return jwtService.generateToken(existingUser.getUsername());
     }
