@@ -1,0 +1,94 @@
+databaseChangeLog:
+
+  - changeSet:
+      id: 1
+      author: Vale
+
+      changes:
+
+        - createTable:
+            tableName: playlist_songs
+
+            columns:
+
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+
+              - column:
+                  name: playlist_id
+                  type: BIGINT
+
+              - column:
+                  name: song_id
+                  type: BIGINT
+
+  - changeSet:
+      id: 2
+      author: Vale
+
+      changes:
+
+        - insert:
+            tableName: playlist_songs
+            columns:
+              - column: {name: playlist_id, valueNumeric: 1}
+              - column: {name: song_id, valueNumeric: 1}
+
+        - insert:
+            tableName: playlist_songs
+            columns:
+              - column: {name: playlist_id, valueNumeric: 1}
+              - column: {name: song_id, valueNumeric: 2}
+
+        - insert:
+            tableName: playlist_songs
+            columns:
+              - column: {name: playlist_id, valueNumeric: 2}
+              - column: {name: song_id, valueNumeric: 3}
+
+        - insert:
+            tableName: playlist_songs
+            columns:
+              - column: {name: playlist_id, valueNumeric: 2}
+              - column: {name: song_id, valueNumeric: 4}
+
+        - insert:
+            tableName: playlist_songs
+            columns:
+              - column: {name: playlist_id, valueNumeric: 3}
+              - column: {name: song_id, valueNumeric: 5}
+
+        - insert:
+            tableName: playlist_songs
+            columns:
+              - column: {name: playlist_id, valueNumeric: 4}
+              - column: {name: song_id, valueNumeric: 6}
+
+        - insert:
+            tableName: playlist_songs
+            columns:
+              - column: {name: playlist_id, valueNumeric: 5}
+              - column: {name: song_id, valueNumeric: 7}
+
+        - insert:
+            tableName: playlist_songs
+            columns:
+              - column: {name: playlist_id, valueNumeric: 6}
+              - column: {name: song_id, valueNumeric: 8}
+
+        - insert:
+            tableName: playlist_songs
+            columns:
+              - column: {name: playlist_id, valueNumeric: 7}
+              - column: {name: song_id, valueNumeric: 9}
+
+        - insert:
+            tableName: playlist_songs
+            columns:
+              - column: {name: playlist_id, valueNumeric: 8}
+              - column: {name: song_id, valueNumeric: 10}

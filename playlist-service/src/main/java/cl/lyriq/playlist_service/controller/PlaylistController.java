@@ -1,0 +1,60 @@
+package cl.lyriq.playlist_service.controller;
+
+import cl.lyriq.playlist_service.dto.PlaylistDTO;
+import cl.lyriq.playlist_service.model.Playlist;
+import cl.lyriq.playlist_service.service.PlaylistService;
+
+import jakarta.validation.Valid;
+
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/playlists")
+public class PlaylistController {
+
+    private final PlaylistService playlistService;
+
+    public PlaylistController(
+            PlaylistService playlistService) {
+
+        this.playlistService = playlistService;
+    }
+
+    @GetMapping
+    public List<Playlist> getAll() {
+        return playlistService.getAllPlaylists();
+    }
+
+    @GetMapping("/{id}")
+    public Playlist getById(
+            @PathVariable Long id) {
+
+        return playlistService.getPlaylistById(id);
+    }
+
+    @PostMapping
+    public Playlist create(
+            @Valid @RequestBody PlaylistDTO dto) {
+
+        return playlistService.createPlaylist(dto);
+    }
+
+    @PutMapping("/{id}")
+    public Playlist update(
+            @PathVariable Long id,
+            @RequestBody Playlist playlist) {
+
+        return playlistService.updatePlaylist(
+                id,
+                playlist);
+    }
+
+    @DeleteMapping("/{id}")
+    public void delete(
+            @PathVariable Long id) {
+
+        playlistService.deletePlaylist(id);
+    }
+}

@@ -1,0 +1,108 @@
+databaseChangeLog:
+
+  - changeSet:
+      id: 1
+      author: Vale
+
+      changes:
+
+        - createTable:
+            tableName: notifications
+
+            columns:
+
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+
+              - column:
+                  name: user_id
+                  type: BIGINT
+
+              - column:
+                  name: message
+                  type: VARCHAR(255)
+
+              - column:
+                  name: created_at
+                  type: DATETIME
+
+  - changeSet:
+      id: 2
+      author: Vale
+
+      changes:
+
+        - insert:
+            tableName: notifications
+            columns:
+              - column: {name: user_id, valueNumeric: 1}
+              - column: {name: message, value: "Canción agregada a favoritos"}
+              - column: {name: created_at, valueDate: "2026-01-01T10:00:00"}
+
+        - insert:
+            tableName: notifications
+            columns:
+              - column: {name: user_id, valueNumeric: 2}
+              - column: {name: message, value: "Playlist creada"}
+              - column: {name: created_at, valueDate: "2026-01-01T10:05:00"}
+
+        - insert:
+            tableName: notifications
+            columns:
+              - column: {name: user_id, valueNumeric: 3}
+              - column: {name: message, value: "Nueva recomendación disponible"}
+              - column: {name: created_at, valueDate: "2026-01-01T10:10:00"}
+
+        - insert:
+            tableName: notifications
+            columns:
+              - column: {name: user_id, valueNumeric: 4}
+              - column: {name: message, value: "Canción agregada a playlist"}
+              - column: {name: created_at, valueDate: "2026-01-01T10:15:00"}
+
+        - insert:
+            tableName: notifications
+            columns:
+              - column: {name: user_id, valueNumeric: 5}
+              - column: {name: message, value: "Favoritos actualizados"}
+              - column: {name: created_at, valueDate: "2026-01-01T10:20:00"}
+
+        - insert:
+            tableName: notifications
+            columns:
+              - column: {name: user_id, valueNumeric: 6}
+              - column: {name: message, value: "Nueva playlist compartida"}
+              - column: {name: created_at, valueDate: "2026-01-01T10:25:00"}
+
+        - insert:
+            tableName: notifications
+            columns:
+              - column: {name: user_id, valueNumeric: 7}
+              - column: {name: message, value: "Se detectó nueva actividad"}
+              - column: {name: created_at, valueDate: "2026-01-01T10:30:00"}
+
+        - insert:
+            tableName: notifications
+            columns:
+              - column: {name: user_id, valueNumeric: 8}
+              - column: {name: message, value: "Nueva canción recomendada"}
+              - column: {name: created_at, valueDate: "2026-01-01T10:35:00"}
+
+        - insert:
+            tableName: notifications
+            columns:
+              - column: {name: user_id, valueNumeric: 9}
+              - column: {name: message, value: "Playlist actualizada"}
+              - column: {name: created_at, valueDate: "2026-01-01T10:40:00"}
+
+        - insert:
+            tableName: notifications
+            columns:
+              - column: {name: user_id, valueNumeric: 10}
+              - column: {name: message, value: "Bienvenido a Lyriq"}
+              - column: {name: created_at, valueDate: "2026-01-01T10:45:00"}
