@@ -1,0 +1,77 @@
+databaseChangeLog:
+
+  - changeSet:
+      id: 2
+      author: Vale
+
+      changes:
+
+        - insert:
+            tableName: recommendations
+            columns:
+              - column: { name: user_id, valueNumeric: 1 }
+              - column: { name: song_id, valueNumeric: 1 }
+              - column: { name: score, valueNumeric: 95 }
+
+        - insert:
+            tableName: recommendations
+            columns:
+              - column: { name: user_id, valueNumeric: 1 }
+              - column: { name: song_id, valueNumeric: 2 }
+              - column: { name: score, valueNumeric: 90 }
+
+        - insert:
+            tableName: recommendations
+            columns:
+              - column: { name: user_id, valueNumeric: 2 }
+              - column: { name: song_id, valueNumeric: 3 }
+              - column: { name: score, valueNumeric: 88 }
+
+        - insert:
+            tableName: recommendations
+            columns:
+              - column: { name: user_id, valueNumeric: 2 }
+              - column: { name: song_id, valueNumeric: 4 }
+              - column: { name: score, valueNumeric: 92 }
+
+        - insert:
+            tableName: recommendations
+            columns:
+              - column: { name: user_id, valueNumeric: 3 }
+              - column: { name: song_id, valueNumeric: 5 }
+              - column: { name: score, valueNumeric: 85 }
+
+        - insert:
+            tableName: recommendations
+            columns:
+              - column: { name: user_id, valueNumeric: 3 }
+              - column: { name: song_id, valueNumeric: 6 }
+              - column: { name: score, valueNumeric: 97 }
+
+        - insert:
+            tableName: recommendations
+            columns:
+              - column: { name: user_id, valueNumeric: 4 }
+              - column: { name: song_id, valueNumeric: 7 }
+              - column: { name: score, valueNumeric: 89 }
+
+        - insert:
+            tableName: recommendations
+            columns:
+              - column: { name: user_id, valueNumeric: 4 }
+              - column: { name: song_id, valueNumeric: 8 }
+              - column: { name: score, valueNumeric: 94 }
+
+        - insert:
+            tableName: recommendations
+            columns:
+              - column: { name: user_id, valueNumeric: 5 }
+              - column: { name: song_id, valueNumeric: 9 }
+              - column: { name: score, valueNumeric: 91 }
+
+        - insert:
+            tableName: recommendations
+            columns:
+              - column: { name: user_id, valueNumeric: 5 }
+              - column: { name: song_id, valueNumeric: 10 }
+              - column: { name: score, valueNumeric: 99 }
