@@ -14,7 +14,7 @@
     </parent>
 
     <groupId>cl.lyriq</groupId>
-    <artifactId>playlist-service</artifactId>
+    <artifactId>recommendation-service</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 
     <name>recommendation-service</name>
