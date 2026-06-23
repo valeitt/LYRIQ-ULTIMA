@@ -6,6 +6,8 @@ import cl.lyriq.swipe_service.model.SwipeAction;
 import cl.lyriq.swipe_service.service.SwipeService;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 import org.springframework.web.bind.annotation.*;
@@ -28,19 +30,34 @@ public class SwipeController {
         this.swipeService = swipeService;
     }
 
-    @Operation(
-            summary = "Obtener todos los swipes",
-            description = "Retorna la lista completa de swipes registrados"
-    )
+@Operation(
+        summary = "Obtener todos los swipes",
+        description = "Retorna la lista completa de swipes registrados"
+)
+@ApiResponse(
+        responseCode = "200",
+        description = "Lista de swipes obtenida correctamente"
+)
     @GetMapping
     public List<Swipe> getAllSwipes() {
         return swipeService.getAllSwipes();
     }
 
-    @Operation(
-            summary = "Buscar swipe por ID",
-            description = "Obtiene un swipe específico mediante su ID"
-    )
+ @Operation(
+        summary = "Buscar swipe por ID",
+        description = "Obtiene un swipe específico mediante su ID"
+)
+
+@ApiResponses({
+        @ApiResponse(
+                responseCode = "200",
+                description = "Swipe encontrado"
+        ),
+        @ApiResponse(
+                responseCode = "404",
+                description = "Swipe no encontrado"
+        )
+})
     @GetMapping("/{id}")
     public Swipe getSwipeById(
             @PathVariable Long id) {
@@ -48,12 +65,37 @@ public class SwipeController {
         return swipeService.getSwipeById(id);
     }
 
+    @Operation(
+        summary = "Crear swipe",
+        description = "Registra un nuevo swipe realizado por un usuario"
+)
+
+@ApiResponse(
+        responseCode = "200",
+        description = "Swipe creado correctamente"
+)
     @PostMapping
     public Swipe createSwipe(
             @RequestBody SwipeDTO dto) {
 
         return swipeService.createSwipe(dto);
     }
+
+
+    @Operation(
+        summary = "Actualizar swipe",
+        description = "Actualiza la información de un swipe existente"
+)
+@ApiResponses({
+        @ApiResponse(
+                responseCode = "200",
+                description = "Swipe actualizado correctamente"
+        ),
+        @ApiResponse(
+                responseCode = "404",
+                description = "Swipe no encontrado"
+        )
+})
 
     @PutMapping("/{id}")
     public Swipe updateSwipe(
@@ -62,6 +104,21 @@ public class SwipeController {
 
         return swipeService.updateSwipe(id, swipe);
     }
+
+@Operation(
+        summary = "Eliminar swipe",
+        description = "Elimina un swipe según su ID"
+)
+@ApiResponses({
+        @ApiResponse(
+                responseCode = "200",
+                description = "Swipe eliminado correctamente"
+        ),
+        @ApiResponse(
+                responseCode = "404",
+                description = "Swipe no encontrado"
+        )
+})
 
     @DeleteMapping("/{id}")
     public String deleteSwipe(
@@ -72,12 +129,33 @@ public class SwipeController {
         return "Swipe removed successfully :3";
     }
 
+
+@Operation(
+        summary = "Obtener swipes por usuario",
+        description = "Retorna todos los swipes realizados por un usuario"
+)
+@ApiResponse(
+        responseCode = "200",
+        description = "Swipes encontrados correctamente"
+)
+
     @GetMapping("/user/{userId}")
     public List<Swipe> getUserSwipes(
             @PathVariable Long userId) {
 
         return swipeService.getUserSwipes(userId);
     }
+
+    
+@Operation(
+        summary = "Obtener swipes por acción",
+        description = "Retorna los swipes filtrados segun el tipo de acción (LIKE o DISLIKE)"
+)
+@ApiResponse(
+        responseCode = "200",
+        description = "Swipes encontrados correctamente"
+)
+
 
     @GetMapping("/action/{action}")
     public List<Swipe> getSwipesByAction(
