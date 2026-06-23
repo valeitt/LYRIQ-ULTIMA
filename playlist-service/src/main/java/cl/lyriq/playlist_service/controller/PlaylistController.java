@@ -4,12 +4,19 @@ import cl.lyriq.playlist_service.dto.PlaylistDTO;
 import cl.lyriq.playlist_service.model.Playlist;
 import cl.lyriq.playlist_service.service.PlaylistService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 import jakarta.validation.Valid;
 
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Tag(
+        name = "Playlists",
+        description = "Operaciones relacionadas con playlists musicales"
+)
 @RestController
 @RequestMapping("/playlists")
 public class PlaylistController {
@@ -22,11 +29,19 @@ public class PlaylistController {
         this.playlistService = playlistService;
     }
 
+    @Operation(
+            summary = "Obtener todas las playlists",
+            description = "Retorna la lista completa de playlists"
+    )
     @GetMapping
     public List<Playlist> getAll() {
         return playlistService.getAllPlaylists();
     }
 
+    @Operation(
+            summary = "Buscar playlist por ID",
+            description = "Obtiene una playlist específica mediante su ID"
+    )
     @GetMapping("/{id}")
     public Playlist getById(
             @PathVariable Long id) {
