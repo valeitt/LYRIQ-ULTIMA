@@ -1,8 +1,8 @@
-package cl.lyriq.playlist_service.repository;
+                package cl.lyriq.playlist_service.repository;
 
-import cl.lyriq.playlist_service.model.Playlist;
-import org.springframework.data.jpa.repository.JpaRepository;
+                import cl.lyriq.playlist_service.model.Playlist;
+                import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface PlaylistRepository
-        extends JpaRepository<Playlist, Long> {
-}
+                public interface PlaylistRepository
+                        extends JpaRepository<Playlist, Long> {
+                }

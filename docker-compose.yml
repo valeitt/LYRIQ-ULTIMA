@@ -1,0 +1,92 @@
+x-common-env: &common-env
+  SECRET: "mi_clave_super_secreta_para_jwt_2026_123456789"
+
+services:
+
+  api-gateway:
+    build: ./api-gateway
+    ports:
+      - "7070:7070"
+    environment:
+      <<: *common-env
+    depends_on:
+      - catalog-service
+      - auth-service
+      - swipe-service
+      - favorites-service
+      - history-service
+      - playlist-service
+      - playlist-song-service
+      - recommendation-service
+      - artist-service
+      - notification-service
+
+  catalog-service:
+    build: ./catalog-service
+    ports:
+      - "7071:7071"
+    environment:
+      <<: *common-env
+
+  auth-service:
+    build: ./auth-service
+    ports:
+      - "7072:7072"
+    environment:
+      <<: *common-env
+
+  swipe-service:
+    build: ./swipe-service
+    ports:
+      - "7073:7073"
+    environment:
+      <<: *common-env
+
+  favorites-service:
+    build: ./favorites-service
+    ports:
+      - "7074:7074"
+    environment:
+      <<: *common-env
+
+  history-service:
+    build: ./history-service
+    ports:
+      - "7075:7075"
+    environment:
+      <<: *common-env
+
+  playlist-service:
+    build: ./playlist-service
+    ports:
+      - "7076:7076"
+    environment:
+      <<: *common-env
+
+  playlist-song-service:
+    build: ./playlist-song-service
+    ports:
+      - "7077:7077"
+    environment:
+      <<: *common-env
+
+  recommendation-service:
+    build: ./recommendation-service
+    ports:
+      - "7078:7078"
+    environment:
+      <<: *common-env
+
+  artist-service:
+    build: ./artist-service
+    ports:
+      - "7079:7079"
+    environment:
+      <<: *common-env
+
+  notification-service:
+    build: ./notification-service
+    ports:
+      - "7080:7080"
+    environment:
+      <<: *common-env

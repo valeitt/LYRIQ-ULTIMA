@@ -12,134 +12,134 @@ spring:
           routes:
 
             - id: song-docs
-              uri: http://localhost:7071
+              uri: http://catalog-service:7071
               predicates:
                 - Path=/songs/v3/api-docs
               filters:
                 - RewritePath=/songs/v3/api-docs,/v3/api-docs
 
             - id: song-service
-              uri: http://localhost:7071
+              uri: http://catalog-service:7071
               predicates:
                 - Path=/songs/**
 
             - id: genre-docs
-              uri: http://localhost:7071
+              uri: http://catalog-service:7071
               predicates:
                 - Path=/genres/v3/api-docs
               filters:
                 - RewritePath=/genres/v3/api-docs,/v3/api-docs
 
             - id: genre-service
-              uri: http://localhost:7071
+              uri: http://catalog-service:7071
               predicates:
                 - Path=/genres/**
 
             - id: auth-docs
-              uri: http://localhost:7072
+              uri: http://auth-service:7072
               predicates:
                 - Path=/auth/v3/api-docs
               filters:
                 - RewritePath=/auth/v3/api-docs,/v3/api-docs
 
             - id: auth-service
-              uri: http://localhost:7072
+              uri: http://auth-service:7072
               predicates:
                 - Path=/auth/**
 
             - id: swipe-docs
-              uri: http://localhost:7073
+              uri: http://swipe-service:7073
               predicates:
                 - Path=/swipes/v3/api-docs
               filters:
                 - RewritePath=/swipes/v3/api-docs,/v3/api-docs
 
             - id: swipe-service
-              uri: http://localhost:7073
+              uri: http://swipe-service:7073
               predicates:
                 - Path=/swipes/**
 
             - id: favorites-docs
-              uri: http://localhost:7074
+              uri: http://favorites-service:7074
               predicates:
                 - Path=/favorites/v3/api-docs
               filters:
                 - RewritePath=/favorites/v3/api-docs,/v3/api-docs
 
             - id: favorites-service
-              uri: http://localhost:7074
+              uri: http://favorites-service:7074
               predicates:
                 - Path=/favorites/**
 
             - id: history-docs
-              uri: http://localhost:7075
+              uri: http://history-service:7075
               predicates:
                 - Path=/history/v3/api-docs
               filters:
                 - RewritePath=/history/v3/api-docs,/v3/api-docs
 
             - id: history-service
-              uri: http://localhost:7075
+              uri: http://history-service:7075
               predicates:
                 - Path=/history/**
 
             - id: playlist-docs
-              uri: http://localhost:7076
+              uri: http://playlist-service:7076
               predicates:
                 - Path=/playlists/v3/api-docs
               filters:
                 - RewritePath=/playlists/v3/api-docs,/v3/api-docs
 
             - id: playlist-service
-              uri: http://localhost:7076
+              uri: http://playlist-service:7076
               predicates:
                 - Path=/playlists/**
 
             - id: playlist-song-docs
-              uri: http://localhost:7077
+              uri: http://playlist-song-service:7077
               predicates:
                 - Path=/playlist-songs/v3/api-docs
               filters:
                 - RewritePath=/playlist-songs/v3/api-docs,/v3/api-docs
 
             - id: playlist-song-service
-              uri: http://localhost:7077
+              uri: http://playlist-song-service:7077
               predicates:
                 - Path=/playlist-songs/**
 
             - id: recommendation-docs
-              uri: http://localhost:7078
+              uri: http://recommendation-service:7078
               predicates:
                 - Path=/recommendations/v3/api-docs
               filters:
                 - RewritePath=/recommendations/v3/api-docs,/v3/api-docs
 
             - id: recommendation-service
-              uri: http://localhost:7078
+              uri: http://recommendation-service:7078
               predicates:
                 - Path=/recommendations/**
 
             - id: artist-docs
-              uri: http://localhost:7079
+              uri: http://artist-service:7079
               predicates:
                 - Path=/artists/v3/api-docs
               filters:
                 - RewritePath=/artists/v3/api-docs,/v3/api-docs
 
             - id: artist-service
-              uri: http://localhost:7079
+              uri: http://artist-service:7079
               predicates:
                 - Path=/artists/**
 
             - id: notification-docs
-              uri: http://localhost:7080
+              uri: http://notification-service:7080
               predicates:
                 - Path=/notifications/v3/api-docs
               filters:
                 - RewritePath=/notifications/v3/api-docs,/v3/api-docs
 
             - id: notification-service
-              uri: http://localhost:7080
+              uri: http://notification-service:7080
               predicates:
                 - Path=/notifications/**
 
@@ -149,38 +149,27 @@ springdoc:
 
   swagger-ui:
     enabled: true
-
     urls:
       - name: Songs
         url: /songs/v3/api-docs
-
       - name: Genres
         url: /genres/v3/api-docs
-
       - name: Auth
         url: /auth/v3/api-docs
-
       - name: Swipes
         url: /swipes/v3/api-docs
-
       - name: Favorites
         url: /favorites/v3/api-docs
-
       - name: History
         url: /history/v3/api-docs
-
       - name: Playlists
         url: /playlists/v3/api-docs
-
       - name: Playlist Songs
         url: /playlist-songs/v3/api-docs
-
       - name: Recommendations
         url: /recommendations/v3/api-docs
-
       - name: Artists
         url: /artists/v3/api-docs
-
       - name: Notifications
         url: /notifications/v3/api-docs
 
