@@ -1,0 +1,77 @@
+databaseChangeLog:
+
+  - changeSet:
+      id: 2
+      author: Vale
+
+      changes:
+
+        - insert:
+            tableName: playlists
+            columns:
+              - column: { name: name, value: "Rock Classics" }
+              - column: { name: description, value: "Best classic rock songs" }
+              - column: { name: user_id, valueNumeric: 1 }
+
+        - insert:
+            tableName: playlists
+            columns:
+              - column: { name: name, value: "Pop Hits" }
+              - column: { name: description, value: "Top pop tracks" }
+              - column: { name: user_id, valueNumeric: 2 }
+
+        - insert:
+            tableName: playlists
+            columns:
+              - column: { name: name, value: "Workout Mix" }
+              - column: { name: description, value: "Songs for training" }
+              - column: { name: user_id, valueNumeric: 3 }
+
+        - insert:
+            tableName: playlists
+            columns:
+              - column: { name: name, value: "Relax Vibes" }
+              - column: { name: description, value: "Chill and relaxing music" }
+              - column: { name: user_id, valueNumeric: 4 }
+
+        - insert:
+            tableName: playlists
+            columns:
+              - column: { name: name, value: "Study Playlist" }
+              - column: { name: description, value: "Focus and concentration" }
+              - column: { name: user_id, valueNumeric: 5 }
+
+        - insert:
+            tableName: playlists
+            columns:
+              - column: { name: name, value: "Indie Favorites" }
+              - column: { name: description, value: "Best indie songs" }
+              - column: { name: user_id, valueNumeric: 1 }
+
+        - insert:
+            tableName: playlists
+            columns:
+              - column: { name: name, value: "Latin Hits" }
+              - column: { name: description, value: "Popular latin music" }
+              - column: { name: user_id, valueNumeric: 2 }
+
+        - insert:
+            tableName: playlists
+            columns:
+              - column: { name: name, value: "Electronic Mix" }
+              - column: { name: description, value: "EDM and dance tracks" }
+              - column: { name: user_id, valueNumeric: 3 }
+
+        - insert:
+            tableName: playlists
+            columns:
+              - column: { name: name, value: "Acoustic Sessions" }
+              - column: { name: description, value: "Acoustic versions" }
+              - column: { name: user_id, valueNumeric: 4 }
+
+        - insert:
+            tableName: playlists
+            columns:
+              - column: { name: name, value: "Top 2026" }
+              - column: { name: description, value: "Most played songs of 2026" }
+              - column: { name: user_id, valueNumeric: 5 }

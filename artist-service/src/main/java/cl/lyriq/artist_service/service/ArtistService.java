@@ -1,6 +1,8 @@
 package cl.lyriq.artist_service.service;
 
 import cl.lyriq.artist_service.dto.ArtistDTO;
+import cl.lyriq.artist_service.exception.BadRequestException;
+import cl.lyriq.artist_service.exception.ResourceNotFoundException;
 import cl.lyriq.artist_service.model.Artist;
 import cl.lyriq.artist_service.repository.ArtistRepository;
 
@@ -37,29 +39,52 @@ public class ArtistService {
         logger.info("Getting artist with ID {}", id);
 
         return repository.findById(id)
+<<<<<<< HEAD
                 .orElseThrow(() -> {
                     logger.error("Artist not found with ID {}", id);
                     return new RuntimeException(
                             "Artist not found");
                 });
+=======
+                .orElseThrow(() ->
+                        new ResourceNotFoundException(
+                                "Artista no encontrado"));
+>>>>>>> origin/main
     }
 
     public Artist create(
             ArtistDTO dto) {
 
+<<<<<<< HEAD
         logger.info("Creating artist: {}", dto.getName());
+=======
+        if (dto.getName() == null ||
+                dto.getName().trim().isEmpty()) {
+
+            throw new BadRequestException(
+                    "El nombre del artista es obligatorio");
+        }
+>>>>>>> origin/main
 
         Artist artist = new Artist();
 
-        artist.setName(dto.getName());
-        artist.setCountry(dto.getCountry());
+        artist.setName(
+                dto.getName());
 
+<<<<<<< HEAD
         Artist savedArtist = repository.save(artist);
 
         logger.info("Artist created successfully with ID {}",
                 savedArtist.getId());
 
         return savedArtist;
+=======
+        artist.setCountry(
+                dto.getCountry());
+
+        return repository.save(
+                artist);
+>>>>>>> origin/main
     }
 
     public Artist update(
@@ -70,6 +95,7 @@ public class ArtistService {
 
         Artist artist =
                 repository.findById(id)
+<<<<<<< HEAD
                         .orElseThrow(() -> {
                             logger.error(
                                     "Artist not found with ID {}",
@@ -77,16 +103,29 @@ public class ArtistService {
                             return new RuntimeException(
                                     "Artist not found");
                         });
+=======
+                        .orElseThrow(() ->
+                                new ResourceNotFoundException(
+                                        "Artista no encontrado"));
+>>>>>>> origin/main
 
-        artist.setName(updatedArtist.getName());
-        artist.setCountry(updatedArtist.getCountry());
+        artist.setName(
+                updatedArtist.getName());
 
+<<<<<<< HEAD
         Artist savedArtist = repository.save(artist);
 
         logger.info("Artist updated successfully with ID {}",
                 id);
 
         return savedArtist;
+=======
+        artist.setCountry(
+                updatedArtist.getCountry());
+
+        return repository.save(
+                artist);
+>>>>>>> origin/main
     }
 
     public void delete(Long id) {
@@ -95,6 +134,7 @@ public class ArtistService {
 
         Artist artist =
                 repository.findById(id)
+<<<<<<< HEAD
                         .orElseThrow(() -> {
                             logger.error(
                                     "Artist not found with ID {}",
@@ -107,5 +147,13 @@ public class ArtistService {
 
         logger.info("Artist deleted successfully with ID {}",
                 id);
+=======
+                        .orElseThrow(() ->
+                                new ResourceNotFoundException(
+                                        "Artista no encontrado"));
+
+        repository.delete(
+                artist);
+>>>>>>> origin/main
     }
 }

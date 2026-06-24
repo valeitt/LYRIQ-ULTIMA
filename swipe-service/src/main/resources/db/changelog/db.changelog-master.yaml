@@ -1,7 +1,8 @@
 databaseChangeLog:
+  - include:
+      file: 001-create-swipes-table.yaml
+      relativeToChangelogFile: true
 
   - include:
-      file: db/changelog/changes/001-create-swipes-table.yaml
-
-  - include:
-      file: db/changelog/changes/002-insert-swipes.yaml
+      file: 002-insert-swipes.yaml
+      relativeToChangelogFile: true

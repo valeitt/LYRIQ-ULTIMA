@@ -5,13 +5,12 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.gateway.filter.GatewayFilterChain;
+import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
-
 import org.springframework.web.server.ServerWebExchange;
-import org.springframework.cloud.gateway.filter.GatewayFilterChain;
-import org.springframework.cloud.gateway.filter.GlobalFilter;
 
 import reactor.core.publisher.Mono;
 
@@ -35,7 +34,12 @@ public class JwtAuthenticationFilter
                         .getURI()
                         .getPath();
 
-        if (path.startsWith("/auth")) {
+        // Rutas públicas
+        if (path.startsWith("/auth")
+                || path.startsWith("/swagger-ui")
+                || path.startsWith("/v3/api-docs")
+                || path.contains("/v3/api-docs")) {
+
             return chain.filter(exchange);
         }
 
@@ -44,8 +48,8 @@ public class JwtAuthenticationFilter
                         .getHeaders()
                         .getFirst(HttpHeaders.AUTHORIZATION);
 
-        if (authHeader == null ||
-                !authHeader.startsWith("Bearer ")) {
+        if (authHeader == null
+                || !authHeader.startsWith("Bearer ")) {
 
             exchange.getResponse()
                     .setStatusCode(HttpStatus.UNAUTHORIZED);
@@ -66,11 +70,12 @@ public class JwtAuthenticationFilter
                             )
                     );
 
-            Claims claims = Jwts.parser()
-                    .verifyWith(key)
-                    .build()
-                    .parseSignedClaims(token)
-                    .getPayload();
+            Claims claims =
+                    Jwts.parser()
+                            .verifyWith(key)
+                            .build()
+                            .parseSignedClaims(token)
+                            .getPayload();
 
         } catch (Exception e) {
 

@@ -1,5 +1,9 @@
 databaseChangeLog:
 
-  
-include:
-    file: db/changelog/create-notification-table.yaml
+  - include:
+      file: 001-create-notification-table.yaml
+      relativeToChangelogFile: true
+
+  - include:
+      file: 002-insert-notifications.yaml
+      relativeToChangelogFile: true

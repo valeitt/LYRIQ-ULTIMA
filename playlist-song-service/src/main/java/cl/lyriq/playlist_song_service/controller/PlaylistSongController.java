@@ -4,19 +4,20 @@ import cl.lyriq.playlist_song_service.dto.PlaylistSongDTO;
 import cl.lyriq.playlist_song_service.model.PlaylistSong;
 import cl.lyriq.playlist_song_service.service.PlaylistSongService;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Tag(
+        name = "Playlist Songs",
+        description = "Operaciones relacionadas con las canciones de las playlists"
+)
 @RestController
 @RequestMapping("/playlist-songs")
 public class PlaylistSongController {
-
-    private static final Logger logger =
-            LoggerFactory.getLogger(PlaylistSongController.class);
 
     private final PlaylistSongService service;
 
@@ -26,20 +27,22 @@ public class PlaylistSongController {
         this.service = service;
     }
 
+    @Operation(
+            summary = "Obtener todas las relaciones playlist-canción",
+            description = "Retorna la lista completa de relaciones entre playlists y canciones"
+    )
     @GetMapping
     public List<PlaylistSong> getAll() {
-
-        logger.info("Getting all playlist-song relations");
-
         return service.getAll();
     }
 
+    @Operation(
+            summary = "Buscar relación por ID",
+            description = "Obtiene una relación playlist-canción mediante su ID"
+    )
     @GetMapping("/{id}")
     public PlaylistSong getById(
             @PathVariable Long id) {
-
-        logger.info("Getting playlist-song relation with ID {}",
-                id);
 
         return service.getById(id);
     }
@@ -48,11 +51,6 @@ public class PlaylistSongController {
     public PlaylistSong create(
             @RequestBody PlaylistSongDTO dto) {
 
-        logger.info(
-                "Creating playlist-song relation. Playlist ID: {}, Song ID: {}",
-                dto.getPlaylistId(),
-                dto.getSongId());
-
         return service.create(dto);
     }
 
@@ -60,20 +58,12 @@ public class PlaylistSongController {
     public void delete(
             @PathVariable Long id) {
 
-        logger.info(
-                "Deleting playlist-song relation with ID {}",
-                id);
-
         service.delete(id);
     }
 
     @GetMapping("/playlist/{playlistId}")
     public List<PlaylistSong> getByPlaylist(
             @PathVariable Long playlistId) {
-
-        logger.info(
-                "Getting songs for playlist ID {}",
-                playlistId);
 
         return service.getByPlaylist(
                 playlistId);

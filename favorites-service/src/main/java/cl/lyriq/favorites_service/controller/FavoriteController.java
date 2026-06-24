@@ -3,65 +3,67 @@ package cl.lyriq.favorites_service.controller;
 import cl.lyriq.favorites_service.model.Favorite;
 import cl.lyriq.favorites_service.service.FavoriteService;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Tag(
+        name = "Favorites",
+        description = "Operaciones relacionadas con canciones favoritas"
+)
 @RestController
 @RequestMapping("/favorites")
 public class FavoriteController {
 
-    private static final Logger logger =
-            LoggerFactory.getLogger(FavoriteController.class);
-
     private final FavoriteService favoriteService;
 
-    public FavoriteController(FavoriteService favoriteService) {
+    public FavoriteController(
+            FavoriteService favoriteService) {
+
         this.favoriteService = favoriteService;
     }
 
+    @Operation(
+            summary = "Obtener todos los favoritos",
+            description = "Retorna la lista completa de canciones favoritas"
+    )
     @GetMapping
     public List<Favorite> getAllFavorites() {
-
-        logger.info("Getting all favorites");
-
         return favoriteService.getAllFavorites();
     }
 
+    @Operation(
+            summary = "Buscar favorito por ID",
+            description = "Obtiene un favorito específico mediante su ID"
+    )
     @GetMapping("/{id}")
-    public Favorite getFavoriteById(@PathVariable Long id) {
-
-        logger.info("Getting favorite with ID {}", id);
+    public Favorite getFavoriteById(
+            @PathVariable Long id) {
 
         return favoriteService.getFavoriteById(id);
     }
 
     @PostMapping
-    public Favorite createFavorite(@RequestBody Favorite favorite) {
-
-        logger.info("Creating favorite for user {} and song {}",
-                favorite.getUserId(),
-                favorite.getSongId());
+    public Favorite createFavorite(
+            @RequestBody Favorite favorite) {
 
         return favoriteService.createFavorite(favorite);
     }
 
     @PutMapping("/{id}")
-    public Favorite updateFavorite(@PathVariable Long id,
-                                   @RequestBody Favorite favorite) {
-
-        logger.info("Updating favorite with ID {}", id);
+    public Favorite updateFavorite(
+            @PathVariable Long id,
+            @RequestBody Favorite favorite) {
 
         return favoriteService.updateFavorite(id, favorite);
     }
 
     @DeleteMapping("/{id}")
-    public String deleteFavorite(@PathVariable Long id) {
-
-        logger.info("Deleting favorite with ID {}", id);
+    public String deleteFavorite(
+            @PathVariable Long id) {
 
         favoriteService.deleteFavorite(id);
 
@@ -72,16 +74,12 @@ public class FavoriteController {
     public List<Favorite> getFavoritesByUser(
             @PathVariable Long userId) {
 
-        logger.info("Getting favorites for user {}", userId);
-
         return favoriteService.getFavoritesByUser(userId);
     }
 
     @GetMapping("/count/{userId}")
     public Long countFavoritesByUser(
             @PathVariable Long userId) {
-
-        logger.info("Counting favorites for user {}", userId);
 
         return favoriteService.countFavoritesByUser(userId);
     }

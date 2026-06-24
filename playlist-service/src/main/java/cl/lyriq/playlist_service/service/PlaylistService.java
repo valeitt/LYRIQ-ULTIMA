@@ -1,11 +1,10 @@
 package cl.lyriq.playlist_service.service;
 
 import cl.lyriq.playlist_service.dto.PlaylistDTO;
+import cl.lyriq.playlist_service.exception.BadRequestException;
+import cl.lyriq.playlist_service.exception.ResourceNotFoundException;
 import cl.lyriq.playlist_service.model.Playlist;
 import cl.lyriq.playlist_service.repository.PlaylistRepository;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import org.springframework.stereotype.Service;
 
@@ -13,9 +12,6 @@ import java.util.List;
 
 @Service
 public class PlaylistService {
-
-    private static final Logger logger =
-            LoggerFactory.getLogger(PlaylistService.class);
 
     private final PlaylistRepository playlistRepository;
 
@@ -26,100 +22,76 @@ public class PlaylistService {
     }
 
     public List<Playlist> getAllPlaylists() {
-
-        logger.info("Getting all playlists");
-
         return playlistRepository.findAll();
     }
 
     public Playlist getPlaylistById(Long id) {
 
-        logger.info("Getting playlist with ID {}", id);
-
         return playlistRepository.findById(id)
-                .orElseThrow(() -> {
-                    logger.error(
-                            "Playlist not found with ID {}",
-                            id);
-                    return new RuntimeException(
-                            "Playlist not found");
-                });
+                .orElseThrow(() ->
+                        new ResourceNotFoundException(
+                                "Playlist no encontrada"));
     }
 
     public Playlist createPlaylist(
             PlaylistDTO dto) {
 
-        logger.info("Creating playlist: {}",
-                dto.getName());
+        if (dto.getUserId() == null) {
+            throw new BadRequestException(
+                    "El userId es obligatorio");
+        }
+
+        if (dto.getName() == null ||
+                dto.getName().trim().isEmpty()) {
+
+            throw new BadRequestException(
+                    "El nombre de la playlist es obligatorio");
+        }
 
         Playlist playlist = new Playlist();
 
-        playlist.setUserId(dto.getUserId());
-        playlist.setName(dto.getName());
-        playlist.setDescription(dto.getDescription());
+        playlist.setUserId(
+                dto.getUserId());
 
-        Playlist savedPlaylist =
-                playlistRepository.save(playlist);
+        playlist.setName(
+                dto.getName());
 
-        logger.info(
-                "Playlist created successfully with ID {}",
-                savedPlaylist.getId());
+        playlist.setDescription(
+                dto.getDescription());
 
-        return savedPlaylist;
+        return playlistRepository.save(
+                playlist);
     }
 
     public Playlist updatePlaylist(
             Long id,
             Playlist updatedPlaylist) {
 
-        logger.info(
-                "Updating playlist with ID {}",
-                id);
-
         Playlist playlist =
                 playlistRepository.findById(id)
-                        .orElseThrow(() -> {
-                            logger.error(
-                                    "Playlist not found with ID {}",
-                                    id);
-                            return new RuntimeException(
-                                    "Playlist not found");
-                        });
+                        .orElseThrow(() ->
+                                new ResourceNotFoundException(
+                                        "Playlist no encontrada"));
 
-        playlist.setName(updatedPlaylist.getName());
+        playlist.setName(
+                updatedPlaylist.getName());
+
         playlist.setDescription(
                 updatedPlaylist.getDescription());
 
-        Playlist savedPlaylist =
-                playlistRepository.save(playlist);
-
-        logger.info(
-                "Playlist updated successfully with ID {}",
-                id);
-
-        return savedPlaylist;
+        return playlistRepository.save(
+                playlist);
     }
 
     public void deletePlaylist(Long id) {
 
-        logger.info(
-                "Deleting playlist with ID {}",
-                id);
-
         Playlist playlist =
                 playlistRepository.findById(id)
-                        .orElseThrow(() -> {
-                            logger.error(
-                                    "Playlist not found with ID {}",
-                                    id);
-                            return new RuntimeException(
-                                    "Playlist not found");
-                        });
+                        .orElseThrow(() ->
+                                new ResourceNotFoundException(
+                                        "Playlist no encontrada"));
 
-        playlistRepository.delete(playlist);
-
-        logger.info(
-                "Playlist deleted successfully with ID {}",
-                id);
+        playlistRepository.delete(
+                playlist);
     }
 }

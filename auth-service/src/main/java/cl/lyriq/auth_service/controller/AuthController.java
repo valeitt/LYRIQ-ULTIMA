@@ -7,28 +7,30 @@ import cl.lyriq.auth_service.repository.UserRepository;
 import cl.lyriq.auth_service.security.JwtService;
 import cl.lyriq.auth_service.service.AuthService;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+@Tag(
+        name = "Authentication",
+        description = "Operaciones relacionadas con autenticación y usuarios"
+)
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
-
-    private static final Logger logger =
-            LoggerFactory.getLogger(AuthController.class);
 
     private final AuthService authService;
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
 
-    public AuthController(AuthService authService,
-                          UserRepository userRepository,
-                          PasswordEncoder passwordEncoder,
-                          JwtService jwtService) {
+    public AuthController(
+            AuthService authService,
+            UserRepository userRepository,
+            PasswordEncoder passwordEncoder,
+            JwtService jwtService) {
 
         this.authService = authService;
         this.userRepository = userRepository;
@@ -36,41 +38,40 @@ public class AuthController {
         this.jwtService = jwtService;
     }
 
+    @Operation(
+            summary = "Registrar usuario",
+            description = "Registra un nuevo usuario en el sistema"
+    )
     @PostMapping("/register")
-    public User register(@RequestBody RegisterDTO dto) {
-
-        logger.info("Registering user: {}", dto.getUsername());
+    public User register(
+            @RequestBody RegisterDTO dto) {
 
         return authService.register(dto);
     }
 
+    @Operation(
+            summary = "Iniciar sesión",
+            description = "Autentica un usuario y genera un token JWT"
+    )
     @PostMapping("/login")
-    public String login(@RequestBody LoginDTO dto) {
-
-        logger.info("Login attempt for user: {}",
-                dto.getUsername());
+    public String login(
+            @RequestBody LoginDTO dto) {
 
         User existingUser = userRepository
                 .findByUsername(dto.getUsername())
-                .orElseThrow(() -> {
-                    logger.error("User not found: {}",
-                            dto.getUsername());
-                    return new RuntimeException("User not found");
-                });
+                .orElseThrow(() ->
+                        new RuntimeException(
+                                "User not found"));
 
         if (!passwordEncoder.matches(
                 dto.getPassword(),
                 existingUser.getPassword())) {
 
-            logger.error("Invalid password for user: {}",
-                    dto.getUsername());
-
-            throw new RuntimeException("Password not found");
+            throw new RuntimeException(
+                    "Password not found");
         }
 
-        logger.info("Login successful for user: {}",
-                dto.getUsername());
-
-        return jwtService.generateToken(existingUser.getUsername());
+        return jwtService.generateToken(
+                existingUser.getUsername());
     }
 }
