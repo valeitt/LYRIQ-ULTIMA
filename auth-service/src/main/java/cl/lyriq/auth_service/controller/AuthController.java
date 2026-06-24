@@ -8,6 +8,8 @@ import cl.lyriq.auth_service.security.JwtService;
 import cl.lyriq.auth_service.service.AuthService;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -41,7 +43,16 @@ public class AuthController {
     @Operation(
             summary = "Registrar usuario",
             description = "Registra un nuevo usuario en el sistema"
+    )@ApiResponses({
+        @ApiResponse(
+                responseCode = "200",
+                description = "Usuario registrado correctamente"
+        ),
+        @ApiResponse(
+                responseCode = "400",
+                description = "Datos de registro inválidos"   
     )
+})
     @PostMapping("/register")
     public User register(
             @RequestBody RegisterDTO dto) {
@@ -52,7 +63,16 @@ public class AuthController {
     @Operation(
             summary = "Iniciar sesión",
             description = "Autentica un usuario y genera un token JWT"
-    )
+    )@ApiResponses({
+        @ApiResponse(
+                responseCode = "200",
+                description = "Autenticación exitosa"
+        ),
+        @ApiResponse(
+                responseCode = "401",
+                description = "Credenciales inválidas"
+        )
+})
     @PostMapping("/login")
     public String login(
             @RequestBody LoginDTO dto) {

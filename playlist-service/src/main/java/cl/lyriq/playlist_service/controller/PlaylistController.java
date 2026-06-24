@@ -5,6 +5,8 @@ import cl.lyriq.playlist_service.model.Playlist;
 import cl.lyriq.playlist_service.service.PlaylistService;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 import jakarta.validation.Valid;
@@ -32,7 +34,10 @@ public class PlaylistController {
     @Operation(
             summary = "Obtener todas las playlists",
             description = "Retorna la lista completa de playlists"
-    )
+    )@ApiResponse(
+        responseCode = "200",
+        description = "Lista de playlists obtenida correctamente"
+)
     @GetMapping
     public List<Playlist> getAll() {
         return playlistService.getAllPlaylists();
@@ -42,6 +47,16 @@ public class PlaylistController {
             summary = "Buscar playlist por ID",
             description = "Obtiene una playlist específica mediante su ID"
     )
+    @ApiResponses({
+        @ApiResponse(
+                responseCode = "200",
+                description = "Playlist encontrada"
+        ),
+        @ApiResponse(
+                responseCode = "404",
+                description = "Playlist no encontrada"
+        )
+})
     @GetMapping("/{id}")
     public Playlist getById(
             @PathVariable Long id) {
@@ -49,6 +64,14 @@ public class PlaylistController {
         return playlistService.getPlaylistById(id);
     }
 
+    @Operation(
+        summary = "Crear playlist",
+        description = "Registra una nueva playlist musical"
+)
+@ApiResponse(
+        responseCode = "200",
+        description = "Playlist creada correctamente"
+)
     @PostMapping
     public Playlist create(
             @Valid @RequestBody PlaylistDTO dto) {
@@ -56,6 +79,20 @@ public class PlaylistController {
         return playlistService.createPlaylist(dto);
     }
 
+    @Operation(
+        summary = "Actualizar playlist",
+        description = "Actualiza la información de una playlist existente"
+)
+@ApiResponses({
+        @ApiResponse(
+                responseCode = "200",
+                description = "Playlist actualizada correctamente"
+        ),
+        @ApiResponse(
+                responseCode = "404",
+                description = "Playlist no encontrada"
+        )
+})
     @PutMapping("/{id}")
     public Playlist update(
             @PathVariable Long id,
@@ -66,6 +103,20 @@ public class PlaylistController {
                 playlist);
     }
 
+@Operation(
+        summary = "Eliminar playlist",
+        description = "Elimina una playlist según su ID"
+)
+@ApiResponses({
+        @ApiResponse(
+                responseCode = "200",
+                description = "Playlist eliminada correctamente"
+        ),
+        @ApiResponse(
+                responseCode = "404",
+                description = "Playlist no encontrada"
+        )
+})
     @DeleteMapping("/{id}")
     public void delete(
             @PathVariable Long id) {
