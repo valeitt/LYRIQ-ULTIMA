@@ -6,12 +6,18 @@ import cl.lyriq.artist_service.exception.ResourceNotFoundException;
 import cl.lyriq.artist_service.model.Artist;
 import cl.lyriq.artist_service.repository.ArtistRepository;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public class ArtistService {
+
+    private static final Logger logger =
+            LoggerFactory.getLogger(ArtistService.class);
 
     private final ArtistRepository repository;
 
@@ -22,68 +28,132 @@ public class ArtistService {
     }
 
     public List<Artist> getAll() {
+
+        logger.info("Getting all artists");
+
         return repository.findAll();
     }
 
     public Artist getById(Long id) {
 
+        logger.info("Getting artist with ID {}", id);
+
         return repository.findById(id)
+<<<<<<< HEAD
+                .orElseThrow(() -> {
+                    logger.error("Artist not found with ID {}", id);
+                    return new RuntimeException(
+                            "Artist not found");
+                });
+=======
                 .orElseThrow(() ->
                         new ResourceNotFoundException(
                                 "Artista no encontrado"));
+>>>>>>> origin/main
     }
 
     public Artist create(
             ArtistDTO dto) {
 
+<<<<<<< HEAD
+        logger.info("Creating artist: {}", dto.getName());
+=======
         if (dto.getName() == null ||
                 dto.getName().trim().isEmpty()) {
 
             throw new BadRequestException(
                     "El nombre del artista es obligatorio");
         }
+>>>>>>> origin/main
 
         Artist artist = new Artist();
 
         artist.setName(
                 dto.getName());
 
+<<<<<<< HEAD
+        Artist savedArtist = repository.save(artist);
+
+        logger.info("Artist created successfully with ID {}",
+                savedArtist.getId());
+
+        return savedArtist;
+=======
         artist.setCountry(
                 dto.getCountry());
 
         return repository.save(
                 artist);
+>>>>>>> origin/main
     }
 
     public Artist update(
             Long id,
             Artist updatedArtist) {
 
+        logger.info("Updating artist with ID {}", id);
+
         Artist artist =
                 repository.findById(id)
+<<<<<<< HEAD
+                        .orElseThrow(() -> {
+                            logger.error(
+                                    "Artist not found with ID {}",
+                                    id);
+                            return new RuntimeException(
+                                    "Artist not found");
+                        });
+=======
                         .orElseThrow(() ->
                                 new ResourceNotFoundException(
                                         "Artista no encontrado"));
+>>>>>>> origin/main
 
         artist.setName(
                 updatedArtist.getName());
 
+<<<<<<< HEAD
+        Artist savedArtist = repository.save(artist);
+
+        logger.info("Artist updated successfully with ID {}",
+                id);
+
+        return savedArtist;
+=======
         artist.setCountry(
                 updatedArtist.getCountry());
 
         return repository.save(
                 artist);
+>>>>>>> origin/main
     }
 
     public void delete(Long id) {
 
+        logger.info("Deleting artist with ID {}", id);
+
         Artist artist =
                 repository.findById(id)
+<<<<<<< HEAD
+                        .orElseThrow(() -> {
+                            logger.error(
+                                    "Artist not found with ID {}",
+                                    id);
+                            return new RuntimeException(
+                                    "Artist not found");
+                        });
+
+        repository.delete(artist);
+
+        logger.info("Artist deleted successfully with ID {}",
+                id);
+=======
                         .orElseThrow(() ->
                                 new ResourceNotFoundException(
                                         "Artista no encontrado"));
 
         repository.delete(
                 artist);
+>>>>>>> origin/main
     }
 }

@@ -11,6 +11,9 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 
 import jakarta.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,6 +25,9 @@ import java.util.List;
 @RestController
 @RequestMapping("/playlists")
 public class PlaylistController {
+
+    private static final Logger logger =
+            LoggerFactory.getLogger(PlaylistController.class);
 
     private final PlaylistService playlistService;
 
@@ -40,6 +46,9 @@ public class PlaylistController {
 )
     @GetMapping
     public List<Playlist> getAll() {
+
+        logger.info("Getting all playlists");
+
         return playlistService.getAllPlaylists();
     }
 
@@ -61,6 +70,8 @@ public class PlaylistController {
     public Playlist getById(
             @PathVariable Long id) {
 
+        logger.info("Getting playlist with ID {}", id);
+
         return playlistService.getPlaylistById(id);
     }
 
@@ -75,6 +86,9 @@ public class PlaylistController {
     @PostMapping
     public Playlist create(
             @Valid @RequestBody PlaylistDTO dto) {
+
+        logger.info("Creating playlist: {}",
+                dto.getName());
 
         return playlistService.createPlaylist(dto);
     }
@@ -98,6 +112,9 @@ public class PlaylistController {
             @PathVariable Long id,
             @RequestBody Playlist playlist) {
 
+        logger.info("Updating playlist with ID {}",
+                id);
+
         return playlistService.updatePlaylist(
                 id,
                 playlist);
@@ -120,6 +137,9 @@ public class PlaylistController {
     @DeleteMapping("/{id}")
     public void delete(
             @PathVariable Long id) {
+
+        logger.info("Deleting playlist with ID {}",
+                id);
 
         playlistService.deletePlaylist(id);
     }
