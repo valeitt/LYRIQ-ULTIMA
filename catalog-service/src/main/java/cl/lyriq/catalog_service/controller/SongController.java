@@ -42,6 +42,21 @@ public class SongController {
     }
 
     @Operation(
+            summary = "Buscar canciones por artista",
+            description = "Retorna canciones filtradas por nombre de artista (usado internamente por artist-service)"
+    )
+    @ApiResponses({
+        @ApiResponse(responseCode = "200", description = "Canciones encontradas"),
+        @ApiResponse(responseCode = "400", description = "Nombre de artista requerido")
+    })
+    @GetMapping("/by-artist")
+    public List<Song> getSongsByArtist(
+            @org.springframework.web.bind.annotation.RequestParam String artist) {
+
+        return songService.getSongsByArtist(artist);
+    }
+
+    @Operation(
             summary = "Buscar canción por ID",
             description = "Obtiene una canción específica mediante su ID"
     )@ApiResponses({

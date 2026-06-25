@@ -36,6 +36,21 @@ public class SongService {
         return songRepository.findAll();
     }
 
+    /**
+     * Obtiene canciones filtradas por nombre de artista.
+     * Es consumido por artist-service vía WebClient.
+     */
+    public List<Song> getSongsByArtist(String artist) {
+
+        if (artist == null || artist.trim().isEmpty()) {
+            throw new BadRequestException("Artist name is required");
+        }
+
+        logger.info("Searching songs for artist: {}", artist);
+
+        return songRepository.findByArtistContainingIgnoreCase(artist);
+    }
+
     public Song getSongById(Long id) {
 
         return songRepository.findById(id)
