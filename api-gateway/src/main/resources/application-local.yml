@@ -1,0 +1,17 @@
+# =============================================
+# API GATEWAY — Perfil LOCAL (Windows)
+# Todos los microservicios en localhost
+# Activo con: -Dspring.profiles.active=local
+# =============================================
+
+services:
+  catalog: http://localhost:7071
+  auth: http://localhost:7072
+  swipe: http://localhost:7073
+  favorites: http://localhost:7074
+  history: http://localhost:7075
+  playlist: http://localhost:7076
+  playlist-song: http://localhost:7077
+  recommendation: http://localhost:7078
+  artist: http://localhost:7079
+  notification: http://localhost:7080

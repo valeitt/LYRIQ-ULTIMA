@@ -1,0 +1,17 @@
+# =============================================
+# API GATEWAY — Perfil DOCKER
+# Todos los microservicios usando nombre de contenedor Docker
+# Activo con: SPRING_PROFILES_ACTIVE=docker (docker-compose lo setea)
+# =============================================
+
+services:
+  catalog: http://catalog-service:7071
+  auth: http://auth-service:7072
+  swipe: http://swipe-service:7073
+  favorites: http://favorites-service:7074
+  history: http://history-service:7075
+  playlist: http://playlist-service:7076
+  playlist-song: http://playlist-song-service:7077
+  recommendation: http://recommendation-service:7078
+  artist: http://artist-service:7079
+  notification: http://notification-service:7080

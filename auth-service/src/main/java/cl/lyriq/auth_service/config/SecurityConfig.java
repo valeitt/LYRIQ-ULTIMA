@@ -11,6 +11,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import org.springframework.security.web.SecurityFilterChain;
 
+/**
+ * Configuración de seguridad del auth-service.
+ * Sin autenticación requerida — todos los endpoints son públicos.
+ */
 @Configuration
 public class SecurityConfig {
 
@@ -20,9 +24,7 @@ public class SecurityConfig {
     }
 
     @Bean
-    public SecurityFilterChain securityFilterChain(
-            HttpSecurity http)
-            throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         http
                 .csrf(csrf -> csrf.disable())
@@ -30,14 +32,7 @@ public class SecurityConfig {
                 .cors(Customizer.withDefaults())
 
                 .authorizeHttpRequests(auth -> auth
-
-                        .requestMatchers(
-                                "/auth/**",
-                                "/swagger-ui/**",
-                                "/v3/api-docs/**"
-                        ).permitAll()
-
-                        .anyRequest().authenticated()
+                        .anyRequest().permitAll()
                 )
 
                 .httpBasic(httpBasic -> httpBasic.disable())

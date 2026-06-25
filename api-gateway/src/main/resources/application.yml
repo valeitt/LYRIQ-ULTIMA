@@ -4,6 +4,8 @@ server:
 spring:
   application:
     name: api-gateway
+  profiles:
+    default: local
 
   cloud:
     gateway:
@@ -11,144 +13,155 @@ spring:
         webflux:
           routes:
 
+            # ─── CATALOG SERVICE ───────────────────────────
             - id: song-docs
-              uri: http://catalog-service:7071
+              uri: ${services.catalog}
               predicates:
                 - Path=/songs/v3/api-docs
               filters:
                 - RewritePath=/songs/v3/api-docs,/v3/api-docs
 
             - id: song-service
-              uri: http://catalog-service:7071
+              uri: ${services.catalog}
               predicates:
                 - Path=/songs/**
 
             - id: genre-docs
-              uri: http://catalog-service:7071
+              uri: ${services.catalog}
               predicates:
                 - Path=/genres/v3/api-docs
               filters:
                 - RewritePath=/genres/v3/api-docs,/v3/api-docs
 
             - id: genre-service
-              uri: http://catalog-service:7071
+              uri: ${services.catalog}
               predicates:
                 - Path=/genres/**
 
+            # ─── AUTH SERVICE ──────────────────────────────
             - id: auth-docs
-              uri: http://auth-service:7072
+              uri: ${services.auth}
               predicates:
                 - Path=/auth/v3/api-docs
               filters:
                 - RewritePath=/auth/v3/api-docs,/v3/api-docs
 
             - id: auth-service
-              uri: http://auth-service:7072
+              uri: ${services.auth}
               predicates:
                 - Path=/auth/**
 
+            # ─── SWIPE SERVICE ─────────────────────────────
             - id: swipe-docs
-              uri: http://swipe-service:7073
+              uri: ${services.swipe}
               predicates:
                 - Path=/swipes/v3/api-docs
               filters:
                 - RewritePath=/swipes/v3/api-docs,/v3/api-docs
 
             - id: swipe-service
-              uri: http://swipe-service:7073
+              uri: ${services.swipe}
               predicates:
                 - Path=/swipes/**
 
+            # ─── FAVORITES SERVICE ─────────────────────────
             - id: favorites-docs
-              uri: http://favorites-service:7074
+              uri: ${services.favorites}
               predicates:
                 - Path=/favorites/v3/api-docs
               filters:
                 - RewritePath=/favorites/v3/api-docs,/v3/api-docs
 
             - id: favorites-service
-              uri: http://favorites-service:7074
+              uri: ${services.favorites}
               predicates:
                 - Path=/favorites/**
 
+            # ─── HISTORY SERVICE ───────────────────────────
             - id: history-docs
-              uri: http://history-service:7075
+              uri: ${services.history}
               predicates:
                 - Path=/history/v3/api-docs
               filters:
                 - RewritePath=/history/v3/api-docs,/v3/api-docs
 
             - id: history-service
-              uri: http://history-service:7075
+              uri: ${services.history}
               predicates:
                 - Path=/history/**
 
+            # ─── PLAYLIST SERVICE ──────────────────────────
             - id: playlist-docs
-              uri: http://playlist-service:7076
+              uri: ${services.playlist}
               predicates:
                 - Path=/playlists/v3/api-docs
               filters:
                 - RewritePath=/playlists/v3/api-docs,/v3/api-docs
 
             - id: playlist-service
-              uri: http://playlist-service:7076
+              uri: ${services.playlist}
               predicates:
                 - Path=/playlists/**
 
+            # ─── PLAYLIST-SONG SERVICE ─────────────────────
             - id: playlist-song-docs
-              uri: http://playlist-song-service:7077
+              uri: ${services.playlist-song}
               predicates:
                 - Path=/playlist-songs/v3/api-docs
               filters:
                 - RewritePath=/playlist-songs/v3/api-docs,/v3/api-docs
 
             - id: playlist-song-service
-              uri: http://playlist-song-service:7077
+              uri: ${services.playlist-song}
               predicates:
                 - Path=/playlist-songs/**
 
+            # ─── RECOMMENDATION SERVICE ────────────────────
             - id: recommendation-docs
-              uri: http://recommendation-service:7078
+              uri: ${services.recommendation}
               predicates:
                 - Path=/recommendations/v3/api-docs
               filters:
                 - RewritePath=/recommendations/v3/api-docs,/v3/api-docs
 
             - id: recommendation-service
-              uri: http://recommendation-service:7078
+              uri: ${services.recommendation}
               predicates:
                 - Path=/recommendations/**
 
+            # ─── ARTIST SERVICE ────────────────────────────
             - id: artist-docs
-              uri: http://artist-service:7079
+              uri: ${services.artist}
               predicates:
                 - Path=/artists/v3/api-docs
               filters:
                 - RewritePath=/artists/v3/api-docs,/v3/api-docs
 
             - id: artist-service
-              uri: http://artist-service:7079
+              uri: ${services.artist}
               predicates:
                 - Path=/artists/**
 
+            # ─── NOTIFICATION SERVICE ──────────────────────
             - id: notification-docs
-              uri: http://notification-service:7080
+              uri: ${services.notification}
               predicates:
                 - Path=/notifications/v3/api-docs
               filters:
                 - RewritePath=/notifications/v3/api-docs,/v3/api-docs
 
             - id: notification-service
-              uri: http://notification-service:7080
+              uri: ${services.notification}
               predicates:
                 - Path=/notifications/**
 
+# ─── SPRINGDOC / SWAGGER ───────────────────────────────────
 springdoc:
   api-docs:
     enabled: true
-
   swagger-ui:
     enabled: true
+    path: /swagger-ui.html
     urls:
       - name: Songs
         url: /songs/v3/api-docs
@@ -172,9 +185,6 @@ springdoc:
         url: /artists/v3/api-docs
       - name: Notifications
         url: /notifications/v3/api-docs
-
-jwt:
-  secret: mi_clave_super_secreta_para_jwt_2026_123456789
 
 logging:
   level:
