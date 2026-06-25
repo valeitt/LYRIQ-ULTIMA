@@ -59,7 +59,7 @@ public class SwipeService {
 
         SongResponseDTO song =
                 restTemplate.getForObject(
-                        "http://localhost:7071/songs/" +
+                        "http://catalog-service:7071/songs/" +
                                 dto.getSongId(),
                         SongResponseDTO.class
                 );
@@ -106,7 +106,7 @@ public class SwipeService {
                     dto.getSongId());
 
             restTemplate.postForObject(
-                    "http://localhost:7074/favorites",
+                    "http://favorites-service:7074/favorites",
                     favoriteDTO,
                     Object.class
             );
@@ -124,7 +124,7 @@ public class SwipeService {
                     dto.getSongId());
 
             restTemplate.postForObject(
-                    "http://localhost:7075/history",
+                    "http://history-service:7075/history",
                     historyDTO,
                     Object.class
             );

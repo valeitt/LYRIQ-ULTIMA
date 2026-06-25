@@ -3,6 +3,15 @@ x-common-env: &common-env
 
 services:
 
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ""
+    ports:
+      - "3306:3306"
+
   api-gateway:
     build: ./api-gateway
     ports:
@@ -10,6 +19,7 @@ services:
     environment:
       <<: *common-env
     depends_on:
+      - mysql
       - catalog-service
       - auth-service
       - swipe-service
@@ -27,6 +37,8 @@ services:
       - "7071:7071"
     environment:
       <<: *common-env
+    depends_on:
+      - mysql
 
   auth-service:
     build: ./auth-service
@@ -34,6 +46,8 @@ services:
       - "7072:7072"
     environment:
       <<: *common-env
+    depends_on:
+      - mysql
 
   swipe-service:
     build: ./swipe-service
@@ -41,6 +55,8 @@ services:
       - "7073:7073"
     environment:
       <<: *common-env
+    depends_on:
+      - mysql
 
   favorites-service:
     build: ./favorites-service
@@ -48,6 +64,8 @@ services:
       - "7074:7074"
     environment:
       <<: *common-env
+    depends_on:
+      - mysql
 
   history-service:
     build: ./history-service
@@ -55,6 +73,8 @@ services:
       - "7075:7075"
     environment:
       <<: *common-env
+    depends_on:
+      - mysql
 
   playlist-service:
     build: ./playlist-service
@@ -62,6 +82,8 @@ services:
       - "7076:7076"
     environment:
       <<: *common-env
+    depends_on:
+      - mysql
 
   playlist-song-service:
     build: ./playlist-song-service
@@ -69,6 +91,8 @@ services:
       - "7077:7077"
     environment:
       <<: *common-env
+    depends_on:
+      - mysql
 
   recommendation-service:
     build: ./recommendation-service
@@ -76,6 +100,8 @@ services:
       - "7078:7078"
     environment:
       <<: *common-env
+    depends_on:
+      - mysql
 
   artist-service:
     build: ./artist-service
@@ -83,6 +109,8 @@ services:
       - "7079:7079"
     environment:
       <<: *common-env
+    depends_on:
+      - mysql
 
   notification-service:
     build: ./notification-service
@@ -90,3 +118,5 @@ services:
       - "7080:7080"
     environment:
       <<: *common-env
+    depends_on:
+      - mysql
