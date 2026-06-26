@@ -7,10 +7,7 @@ import io.swagger.v3.oas.models.info.Info;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-/**
- * Configuración de OpenAPI / Swagger para el API Gateway.
- * Sin esquema de autenticación — todos los endpoints son públicos.
- */
+
 @Configuration
 public class SwaggerConfig {
 

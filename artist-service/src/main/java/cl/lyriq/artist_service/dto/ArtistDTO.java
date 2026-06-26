@@ -6,9 +6,9 @@ import lombok.Data;
 @Data
 public class ArtistDTO {
 
-    @NotBlank
+    @NotBlank(message = "El nombre del artista es obligatorio")
     private String name;
 
-    @NotBlank
+    @NotBlank(message = "El país del artista es obligatorio")
     private String country;
 }
